@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ログイン - E-Commerce Platform</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem;
+        }
+        
+        .login-box {
+            background: white;
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 450px;
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .login-header h1 {
+            font-size: 2rem;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+        
+        .login-header p {
+            color: #6b7280;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #374151;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .demo-accounts {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: #f3f4f6;
+            border-radius: 8px;
+        }
+        
+        .demo-accounts h3 {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .demo-account {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            background: white;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .demo-account:hover {
+            background: #e0e7ff;
+        }
+        
+        .demo-account-info {
+            font-size: 0.875rem;
+        }
+        
+        .demo-account-role {
+            font-weight: 600;
+            color: #1f2937;
+        }
+        
+        .demo-account-login {
+            color: #6b7280;
+        }
+        
+        .use-btn {
+            padding: 0.5rem 1rem;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            cursor: pointer;
+        }
+        
+        .back-link {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        
+        .back-link a {
+            color: #6b7280;
+            text-decoration: none;
+        }
+        
+        .back-link a:hover {
+            color: #3b82f6;
+        }
+        
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        .alert.error {
+            background: #fee2e2;
+            color: #991b1b;
+            display: block;
+        }
+        
+        .alert.success {
+            background: #d1fae5;
+            color: #065f46;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <h1>🛒 E-Commerce</h1>
+                <p>アカウントにログイン</p>
+            </div>
+            
+            <div id="alert" class="alert"></div>
+            
+            <form id="login-form" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="username">ユーザー名またはメールアドレス</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">パスワード</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <button type="submit" class="submit-btn" id="submit-btn">
+                    ログイン
+                </button>
+            </form>
+            
+            <div class="demo-accounts">
+                <h3>デモアカウント</h3>
+                
+                <div class="demo-account" onclick="useDemoAccount('admin', 'Admin@123')">
+                    <div class="demo-account-info">
+                        <div class="demo-account-role">👑 管理者</div>
+                        <div class="demo-account-login">admin / Admin@123</div>
+                    </div>
+                    <button type="button" class="use-btn">使用</button>
+                </div>
+                
+                <div class="demo-account" onclick="useDemoAccount('customer', 'Customer@123')">
+                    <div class="demo-account-info">
+                        <div class="demo-account-role">👤 一般顧客</div>
+                        <div class="demo-account-login">customer / Customer@123</div>
+                    </div>
+                    <button type="button" class="use-btn">使用</button>
+                </div>
+            </div>
+            
+            <div class="back-link">
+                <a href="index.html">← ホームに戻る</a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // デモアカウント使用
+        function useDemoAccount(username, password) {
+            document.getElementById('username').value = username;
+            document.getElementById('password').value = password;
+        }
+        
+        // ログイン処理
+        async function handleLogin(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const submitBtn = document.getElementById('submit-btn');
+            const alert = document.getElementById('alert');
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'ログイン中...';
+            alert.style.display = 'none';
+            
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        usernameOrEmail: username,
+                        password: password
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success && result.data) {
+                    // トークンとユーザー情報を保存
+                    localStorage.setItem('authToken', result.data.token);
+                    localStorage.setItem('user', JSON.stringify(result.data.user));
+                    
+                    // 成功メッセージ
+                    alert.className = 'alert success';
+                    alert.textContent = 'ログインに成功しました！リダイレクト中...';
+                    
+                    // ホームページにリダイレクト
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1000);
+                } else {
+                    throw new Error(result.message || 'ログインに失敗しました');
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                alert.className = 'alert error';
+                alert.textContent = error.message || 'ログインに失敗しました。ユーザー名とパスワードを確認してください。';
+                
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'ログイン';
+            }
+        }
+        
+        // 既にログイン済みの場合はリダイレクト
+        if (localStorage.getItem('authToken')) {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
