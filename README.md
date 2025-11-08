@@ -45,12 +45,22 @@
 ### ✨ プロジェクトの特徴
 
 - ✅ **10,000行以上**の高品質なJavaコード
+- ✅ **フロントエンドUI完備** - 美しいレスポンシブWebページ
 - ✅ **RESTful API** 完全実装
 - ✅ **JWT認証**とロールベースアクセス制御
 - ✅ **Swagger/OpenAPI** による完全なAPIドキュメント
 - ✅ **H2** と **PostgreSQL** のデータベースサポート
 - ✅ **即座に使える**サンプルデータ付き
 - ✅ **本番環境対応**の設計
+
+### 🖼️ スクリーンショット
+
+アプリケーションを起動後、以下のURLでアクセスできます：
+
+- **ホームページ**: `http://localhost:8080/`
+- **商品一覧**: カテゴリー別、検索、フィルター機能
+- **ショッピングカート**: リアルタイム更新
+- **ログインページ**: デモアカウント対応
 
 ## 主な機能
 
@@ -92,6 +102,7 @@
 
 ## 技術スタック
 
+### バックエンド
 - **Java**: 17
 - **Spring Boot**: 3.1.5
 - **Spring Security**: JWT認証
@@ -103,22 +114,40 @@
 - **Swagger/OpenAPI**: API ドキュメント
 - **Maven**: ビルドツール
 
+### フロントエンド
+- **HTML5**: セマンティックマークアップ
+- **CSS3**: モダンなスタイリング、レスポンシブデザイン
+- **JavaScript (ES6+)**: 非同期API通信、DOM操作
+- **Fetch API**: REST API呼び出し
+- **LocalStorage**: カート・認証情報の永続化
+
 ## プロジェクト構成
 
 ```
-src/main/java/com/ecommerce/
-├── config/              # 設定クラス
-├── controller/          # REST コントローラー
-├── dto/                 # データ転送オブジェクト
-│   ├── request/        # リクエストDTO
-│   └── response/       # レスポンスDTO
-├── exception/          # カスタム例外
-├── model/              # エンティティクラス
-│   └── enums/         # 列挙型
-├── repository/         # データリポジトリ
-├── security/           # セキュリティ設定
-├── service/            # ビジネスロジック
-└── util/               # ユーティリティクラス
+src/
+├── main/
+│   ├── java/com/ecommerce/
+│   │   ├── config/              # 設定クラス
+│   │   ├── controller/          # REST コントローラー
+│   │   ├── dto/                 # データ転送オブジェクト
+│   │   │   ├── request/        # リクエストDTO
+│   │   │   └── response/       # レスポンスDTO
+│   │   ├── exception/          # カスタム例外
+│   │   ├── model/              # エンティティクラス
+│   │   │   └── enums/         # 列挙型
+│   │   ├── repository/         # データリポジトリ
+│   │   ├── security/           # セキュリティ設定
+│   │   ├── service/            # ビジネスロジック
+│   │   └── util/               # ユーティリティクラス
+│   └── resources/
+│       ├── static/             # フロントエンド
+│       │   ├── index.html      # ホームページ
+│       │   ├── login.html      # ログインページ
+│       │   ├── cart.html       # カートページ
+│       │   ├── css/           # スタイルシート
+│       │   └── js/            # JavaScript
+│       ├── application.yml     # アプリケーション設定
+│       └── application-prod.yml # 本番環境設定
 ```
 
 ## 💻 必要な環境
@@ -238,13 +267,37 @@ H2 Console: http://localhost:8080/h2-console
 
 | サービス | URL | 説明 |
 |---------|-----|------|
-| **Swagger UI** | http://localhost:8080/swagger-ui.html | API ドキュメント・テスト |
-| **H2 Console** | http://localhost:8080/h2-console | データベース管理 |
-| **REST API** | http://localhost:8080/api | APIエンドポイント |
+| **🏠 ホームページ** | http://localhost:8080/ | **メインアプリケーション（フロントエンド）** |
+| **🛒 ショッピング** | http://localhost:8080/index.html | 商品一覧・検索 |
+| **🔐 ログイン** | http://localhost:8080/login.html | ユーザーログイン |
+| **🛒 カート** | http://localhost:8080/cart.html | ショッピングカート |
+| **📚 Swagger UI** | http://localhost:8080/swagger-ui.html | API ドキュメント・テスト |
+| **🗄️ H2 Console** | http://localhost:8080/h2-console | データベース管理 |
+| **⚡ REST API** | http://localhost:8080/api | APIエンドポイント |
 
 ---
 
 ## 🎮 使用方法
+
+### 🌐 フロントエンドの使い方
+
+#### 1. ホームページにアクセス
+```
+http://localhost:8080/
+```
+
+#### 2. 商品を閲覧
+- **カテゴリーで絞り込み**: Electronics、Clothing、Books等
+- **検索**: 上部の検索ボックスから商品を検索
+- **フィルター**: すべて/注目商品/セール中
+
+#### 3. カートに追加
+- 商品カードの「🛒 カートに追加」ボタンをクリック
+- 右上のカートアイコンから確認
+
+#### 4. ログイン
+- 右上の「ログイン」をクリック
+- デモアカウントを使用（下記参照）
 
 ### デフォルトログイン情報
 
@@ -678,6 +731,7 @@ server:
 
 ## 📊 コード統計
 
+### バックエンド (Java)
 | 項目 | 数量 |
 |-----|------|
 | **総コード行数** | 10,000+ 行 |
@@ -688,6 +742,14 @@ server:
 | **コントローラー** | 6 個 |
 | **DTO** | 20+ 個 |
 | **列挙型** | 6 個 |
+
+### フロントエンド
+| 項目 | 数量 |
+|-----|------|
+| **HTMLページ** | 3 ページ |
+| **CSS** | 500+ 行 |
+| **JavaScript** | 400+ 行 |
+| **機能** | 商品表示、検索、カート、ログイン |
 
 ---
 
