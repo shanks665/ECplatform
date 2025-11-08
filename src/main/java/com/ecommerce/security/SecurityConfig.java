@@ -68,6 +68,16 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        // Static resources (HTML, CSS, JS, images)
+                        .requestMatchers(new org.springframework.security.web.util.matcher.AntPathRequestMatcher("/")).permitAll()
+                        .requestMatchers(new org.springframework.security.web.util.matcher.AntPathRequestMatcher("/index.html")).permitAll()
+                        .requestMatchers(new org.springframework.security.web.util.matcher.AntPathRequestMatcher("/login.html")).permitAll()
+                        .requestMatchers(new org.springframework.security.web.util.matcher.AntPathRequestMatcher("/cart.html")).permitAll()
+                        .requestMatchers(new org.springframework.security.web.util.matcher.AntPathRequestMatcher("/css/**")).permitAll()
+                        .requestMatchers(new org.springframework.security.web.util.matcher.AntPathRequestMatcher("/js/**")).permitAll()
+                        .requestMatchers(new org.springframework.security.web.util.matcher.AntPathRequestMatcher("/images/**")).permitAll()
+                        .requestMatchers(new org.springframework.security.web.util.matcher.AntPathRequestMatcher("/favicon.ico")).permitAll()
+                        
                         // Public endpoints - use AntPathRequestMatcher explicitly
                         .requestMatchers(new org.springframework.security.web.util.matcher.AntPathRequestMatcher("/api/auth/**")).permitAll()
                         .requestMatchers(new org.springframework.security.web.util.matcher.AntPathRequestMatcher("/api/public/**")).permitAll()
@@ -87,7 +97,7 @@ public class SecurityConfig {
                         // Seller endpoints
                         .requestMatchers(new org.springframework.security.web.util.matcher.AntPathRequestMatcher("/api/seller/**")).hasAnyRole("SELLER", "ADMIN")
                         
-                        // All other endpoints require authentication
+                        // All other API endpoints require authentication
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider())
